@@ -103,7 +103,7 @@ export default function TerminalPage() {
       }}
     >
       <div className="flex items-center justify-between mb-4">
-        <h1 className="text-2xl">Finn van Montfort's Portfolio</h1>
+        <h1 className="text-2xl">Finn van Montfort&apos;s Portfolio</h1>
         <button
           aria-label="Switch to Bauhaus"
           onClick={() => router.push("/Bauhaus")}

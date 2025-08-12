@@ -71,22 +71,21 @@ SYNOPSIS
 
 DESCRIPTION
     Shows the manual/help for a specific command.
-`
+`,
 };
-
 
 const updated_man = {
   man: {
     NAME: "man - show command manual",
     SYNOPSIS: "man [command]",
-    DESCRIPTION: "Shows the manual/help for a specific command."
+    DESCRIPTION: "Shows the manual/help for a specific command.",
   },
   about: {
-    NAME:"",
-    SYNOPSIS:"",
-    DESCRIPTION:"",
-  }
-}
+    NAME: "",
+    SYNOPSIS: "",
+    DESCRIPTION: "",
+  },
+};
 
 export default function ManCommand({ cmd }) {
   const cmdParts = cmd.trim().split(" ");

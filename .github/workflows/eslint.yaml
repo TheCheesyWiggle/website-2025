@@ -1,12 +1,11 @@
-name: Prettier Check
+name: Eslint Check
 
 on:
-  workflow_call:
+  workflow_call
 
 jobs:
   prettier:
     runs-on: ubuntu-latest
-
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
@@ -15,9 +14,10 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: 20
+          cache: npm
 
       - name: Install dependencies
         run: npm ci
 
-      - name: Run Prettier check
-        run: npx prettier --check .
+      - name: Run Eslint Check
+        run: npx eslint .

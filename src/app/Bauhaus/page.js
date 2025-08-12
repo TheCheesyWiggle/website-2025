@@ -1,9 +1,9 @@
 'use client';
 import React, { useState, useEffect, useRef } from "react";
-import TerminalPage from "./Terminal";
+import BauhausPage from "./Bauhaus";
 
 export default function Home() {
   return (
-      <TerminalPage/>
+      <BauhausPage/>
   );
 }

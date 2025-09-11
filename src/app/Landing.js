@@ -77,7 +77,7 @@ export default function Home() {
         </div>
         {/* Adventurer Card */}
         <div style={{ display: "flex", flexDirection: "column", alignItems: "center", padding: "1rem", height: "100%" }}>
-          <a href="/adventurer" style={{ textDecoration: "none", width: "100%" }}>
+          <a href="/explorer" style={{ textDecoration: "none", width: "100%" }}>
             <ProfileCard
               name="Explorer"
               title="Hiking & Mountaineering"

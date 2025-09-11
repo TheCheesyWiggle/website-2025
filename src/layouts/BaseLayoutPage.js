@@ -1,6 +1,6 @@
 import '../app/globals.css';
 
-export default function TerminalPage() {
+export default function BaseLayoutPage() {
   return (
     <div
       style={{

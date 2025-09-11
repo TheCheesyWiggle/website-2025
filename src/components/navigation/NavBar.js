@@ -11,7 +11,7 @@ import { motion } from "motion/react";
 import { cn } from "@/lib/utils";
 import { useRouter } from "next/navigation";
  
-export function NavBar() {
+export function NavBar({ children }) {
   const router = useRouter();
   const links = [
     {
@@ -82,7 +82,8 @@ export function NavBar() {
           </div>
         </SidebarBody>
       </Sidebar>
-      <Dashboard />
+      {/* Main content */}
+      <div className="flex flex-1 flex-col overflow-auto">{children}</div>
     </div>
   );
 }

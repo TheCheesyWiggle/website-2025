@@ -16,7 +16,7 @@ import {
   asciiArtMobile,
 } from "@/components/terminal/asciiArt";
 
-export default function TerminalPage() {
+export default function Terminal() {
   const router = useRouter();
   const [name, switchUser] = useState("guest");
   const [input, setInput] = useState("");

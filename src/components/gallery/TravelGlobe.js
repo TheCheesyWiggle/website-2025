@@ -1,5 +1,5 @@
 "use client";
-import React, { useRef } from "react";
+import React, { useRef, useEffect } from "react";
 import { motion } from "motion/react";
 import dynamic from "next/dynamic";
 
@@ -58,40 +58,34 @@ export default function TravelGlobe() {
     autoRotateSpeed: 0.5,
   };
 
+  const handleFly = (place) => {
+    if (worldRef.current?.flyTo) {
+      worldRef.current.flyTo(place.lat, place.lng, 1.5, 2000);
+    } else {
+      console.log("worldRef:", worldRef.current);
+    }
+  };
+
+  useEffect(() => {
+    if (worldRef.current?.flyTo && myPlaces.length > 0) {
+      worldRef.current.flyTo(myPlaces[0].lat, myPlaces[0].lng, 1.5, 2000);
+    }
+  }, []);
+
   return (
     <div className="flex flex-col md:flex-row items-center justify-center w-full h-screen dark:bg-black bg-white relative">
       {/* Globe */}
       <div className="md:w-2/3 relative h-[500px] md:h-full">
-        <World
-          ref={worldRef}
-          data={[]}
-          pointsData={myPlaces}
-          pointLabel={(place) => `
-            <div style="max-width:200px">
-              <strong>${place.name}</strong><br/>
-              <img src="${place.image}" width="180"/><br/>
-              ${place.description}
-            </div>
-          `}
-          globeConfig={globeConfig}
-        />
+        <World ref={worldRef} data={[]} pointsData={myPlaces} globeConfig={globeConfig} />
       </div>
 
       {/* Gallery */}
       <div className="md:w-1/3 p-4 overflow-y-auto h-[500px] md:h-full">
-        <motion.h2
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 1 }}
-          className="text-2xl font-bold mb-4 text-black dark:text-white text-center md:text-left"
-        >
-          My Travels
-        </motion.h2>
-
         {myPlaces.map((place) => (
           <div
             key={place.name}
             className="mb-6 cursor-pointer group"
+            onClick={() => handleFly(place)}
           >
             <h3 className="font-bold text-lg text-black dark:text-white group-hover:text-sky-400 transition">
               {place.name}

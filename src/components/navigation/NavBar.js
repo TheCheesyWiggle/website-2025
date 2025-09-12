@@ -16,14 +16,14 @@ export function NavBar({ children }) {
   const links = [
     {
       label: "Engineer",
-      href: "#",
+      href: "/terminal",
       icon: (
         <IconBrandTabler className="h-5 w-5 shrink-0 text-neutral-700 dark:text-neutral-200" />
       ),
     },
     {
       label: "Athlete",
-      href: "#",
+      href: "/athlete",
       icon: (
         <IconUserBolt className="h-5 w-5 shrink-0 text-neutral-700 dark:text-neutral-200" />
       ),

@@ -69,7 +69,7 @@ export default function TravelGlobe() {
         </div>
 
         {/* Gallery Section */}
-        <div className="w-full md:w-1/4 h-1/4 md:h-full overflow-y-auto p-4 bg-white dark:bg-black">
+        <div className="w-full md:w-1/3 h-1/3 md:h-full overflow-y-auto p-4 bg-white dark:bg-black">
           <h2 className="text-xl font-bold mb-4 text-black dark:text-white">Travel Gallery</h2>
           {myPlaces.map((place, index) => (
             <div

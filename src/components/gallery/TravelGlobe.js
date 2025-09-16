@@ -37,7 +37,7 @@ export default function TravelGlobe() {
 
   // Fly the globe to a specific location
   const flyToPlace = (place) => {
-    if (worldRef.current?.pointOfView) {
+    if (worldRef.current && typeof worldRef.current.pointOfView === 'function') {
       worldRef.current.pointOfView(
         { lat: place.lat, lng: place.lng, altitude: 2 },
         2000
@@ -47,44 +47,50 @@ export default function TravelGlobe() {
 
   // Initial globe position after mount
   const handleGlobeReady = () => {
-    if (worldRef.current?.pointOfView) {
+    if (worldRef.current && typeof worldRef.current.pointOfView === 'function') {
       worldRef.current.pointOfView({ lat: 20, lng: 0, altitude: 2 }, 2000);
     }
   };
 
   return (
-    <div className="flex flex-col md:flex-row w-full h-screen">
-      {/* Globe Section */}
-      <div className="flex-1 h-[400px] md:h-full">
-        <World
-          ref={worldRef}
-          pointsData={myPlaces}
-          onPinClick={flyToPlace}
-          onReady={handleGlobeReady}
-        />
-      </div>
-
-      {/* Gallery Section */}
-      <div className="flex-1 overflow-y-auto p-4 bg-white dark:bg-black">
-        {myPlaces.map((place) => (
-          <div
-            key={place.name}
-            className="mb-6 cursor-pointer group"
-            onClick={() => flyToPlace(place)}
-          >
-            <h3 className="font-bold text-lg text-black dark:text-white group-hover:text-sky-400 transition">
-              {place.name}
-            </h3>
-            <img
-              src={place.image}
-              alt={place.name}
-              className="rounded-lg my-2 shadow-md group-hover:shadow-xl transition"
+    <div className="w-full h-screen max-h-screen overflow-hidden">
+      <div className="flex flex-col md:flex-row w-full h-full">
+        {/* Globe Section */}
+        <div className="flex-1 flex justify-center items-center">
+          <div className="relative w-full h-full">
+            <World
+              ref={worldRef}
+              pointsData={myPlaces}
+              onPinClick={flyToPlace}
+              onReady={handleGlobeReady}
+              className="absolute top-0 left-0 w-full h-full"
             />
-            <p className="text-sm text-neutral-700 dark:text-neutral-300">
-              {place.description}
-            </p>
           </div>
-        ))}
+        </div>
+
+        {/* Gallery Section */}
+        <div className="w-full md:w-1/4 h-1/4 md:h-full overflow-y-auto p-4 bg-white dark:bg-black">
+          <h2 className="text-xl font-bold mb-4 text-black dark:text-white">Travel Gallery</h2>
+          {myPlaces.map((place, index) => (
+            <div
+              key={index}
+              className="mb-6 cursor-pointer group"
+              onClick={() => flyToPlace(place)}
+            >
+              <h3 className="font-bold text-lg text-black dark:text-white group-hover:text-sky-400 transition">
+                {place.name}
+              </h3>
+              <img
+                src={place.image}
+                alt={place.name}
+                className="w-full max-w-sm rounded-lg my-2 shadow-md group-hover:shadow-xl transition"
+              />
+              <p className="text-sm text-neutral-700 dark:text-neutral-300">
+                {place.description}
+              </p>
+            </div>
+          ))}
+        </div>
       </div>
     </div>
   );

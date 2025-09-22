@@ -37,17 +37,23 @@ export default function TravelGlobe() {
 
   // Fly the globe to a specific location
   const flyToPlace = (place) => {
-    if (worldRef.current && typeof worldRef.current.pointOfView === 'function') {
+    if (
+      worldRef.current &&
+      typeof worldRef.current.pointOfView === "function"
+    ) {
       worldRef.current.pointOfView(
         { lat: place.lat, lng: place.lng, altitude: 2 },
-        2000
+        2000,
       );
     }
   };
 
   // Initial globe position after mount
   const handleGlobeReady = () => {
-    if (worldRef.current && typeof worldRef.current.pointOfView === 'function') {
+    if (
+      worldRef.current &&
+      typeof worldRef.current.pointOfView === "function"
+    ) {
       worldRef.current.pointOfView({ lat: 20, lng: 0, altitude: 2 }, 2000);
     }
   };
@@ -70,7 +76,9 @@ export default function TravelGlobe() {
 
         {/* Gallery Section */}
         <div className="w-full md:w-1/3 h-1/3 md:h-full overflow-y-auto p-4 bg-white dark:bg-black">
-          <h2 className="text-xl font-bold mb-4 text-black dark:text-white">Travel Gallery</h2>
+          <h2 className="text-xl font-bold mb-4 text-black dark:text-white">
+            Travel Gallery
+          </h2>
           {myPlaces.map((place, index) => (
             <div
               key={index}

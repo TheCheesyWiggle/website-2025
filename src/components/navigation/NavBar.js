@@ -10,7 +10,7 @@ import {
 import { motion } from "motion/react";
 import { cn } from "@/lib/utils";
 import { useRouter } from "next/navigation";
- 
+
 export function NavBar({ children }) {
   const router = useRouter();
   const links = [
@@ -54,9 +54,7 @@ export function NavBar({ children }) {
       <Sidebar open={open} setOpen={setOpen} animate={true}>
         <SidebarBody className="justify-between gap-10">
           <div className="flex flex-1 flex-col overflow-x-hidden overflow-y-auto">
-            <>
-              
-            </>
+            <></>
             <div className="mt-8 flex flex-col gap-2">
               {links.map((link, idx) => (
                 <SidebarLink key={idx} link={link} />
@@ -114,7 +112,7 @@ export const LogoIcon = () => {
     </a>
   );
 };
- 
+
 // Dummy dashboard component with content
 // Replace this with the action section from each page
 const Dashboard = () => {

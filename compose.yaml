@@ -1,0 +1,31 @@
+version: "3.9"
+
+services:
+  # Production service
+  prod:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: nextjs-prod
+    ports:
+      - "3000:3000"
+    environment:
+      NODE_ENV: production
+    restart: unless-stopped
+
+  # Development service
+  dev:
+    build:
+      context: .
+      dockerfile: Dockerfile
+      target: deps   # only install deps layer, faster dev builds
+    container_name: nextjs-dev
+    command: npm run dev
+    ports:
+      - "3001:3000"
+    volumes:
+      - .:/app        # mount source code
+      - /app/node_modules
+      - /app/.next
+    environment:
+      NODE_ENV: development

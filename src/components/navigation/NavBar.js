@@ -10,7 +10,7 @@ import {
 import { motion } from "motion/react";
 import { cn } from "@/lib/utils";
 import { useRouter } from "next/navigation";
-import Image from 'next/image';
+import Image from "next/image";
 
 export function NavBar({ children }) {
   const router = useRouter();

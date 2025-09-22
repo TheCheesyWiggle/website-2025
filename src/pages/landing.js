@@ -1,5 +1,5 @@
 import ProfileCard from "../components/profile/ProfileCard";
-import Link from 'next/link';
+import Link from "next/link";
 
 import "../components/profile/ProfileCard.css";
 export default function Home() {
@@ -56,7 +56,10 @@ export default function Home() {
             height: "100%",
           }}
         >
-          <Link href="/athlete" style={{ textDecoration: "none", width: "100%" }}>
+          <Link
+            href="/athlete"
+            style={{ textDecoration: "none", width: "100%" }}
+          >
             <ProfileCard
               name="Athlete"
               title="Runner & Cyclist"
@@ -83,7 +86,10 @@ export default function Home() {
             height: "100%",
           }}
         >
-          <Link href="/terminal" style={{ textDecoration: "none", width: "100%" }}>
+          <Link
+            href="/terminal"
+            style={{ textDecoration: "none", width: "100%" }}
+          >
             <ProfileCard
               name="Software Engineer"
               title="Hewlett Packard Enterprise"

@@ -1,7 +1,7 @@
 "use client";
 import React, { useRef } from "react";
 import dynamic from "next/dynamic";
-import Image from 'next/image';
+import Image from "next/image";
 
 // Dynamically import the World component (client-only)
 const World = dynamic(() => import("../ui/globe").then((m) => m.World), {

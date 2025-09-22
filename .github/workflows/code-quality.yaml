@@ -2,59 +2,41 @@ name: Code Quality
 
 on:
   push:
-    branches: ["**"]
+    branches: [main, develop]
   pull_request:
+    branches: [main, develop]
 
 jobs:
+  # Run prettier check
   prettier:
-    runs-on: ubuntu-latest
-    steps:
-      - name: Checkout code
-        uses: actions/checkout@v4
+    name: Prettier Check
+    uses: ./.github/workflows/prettier.yaml
 
-      - name: Set up Node.js
-        uses: actions/setup-node@v4
-        with:
-          node-version: 20
-
-      - name: Install dependencies
-        run: npm ci
-
-      - name: Run Prettier check
-        run: npx prettier --check .
-
+  # Run eslint check
   eslint:
-    runs-on: ubuntu-latest
-    steps:
-      - name: Checkout code
-        uses: actions/checkout@v4
+    name: ESLint Check
+    uses: ./.github/workflows/eslint.yaml
 
-      - name: Set up Node.js
-        uses: actions/setup-node@v4
-        with:
-          node-version: 20
-          cache: npm
+  # Run tests with coverage
+  test:
+    name: Run Tests
+    uses: ./.github/workflows/test.yaml
+    with:
+      upload-coverage: true
+      coverage-threshold: 80
 
-      - name: Install dependencies
-        run: npm ci
+  # Run security scans
+  security:
+    name: Security Scan
+    uses: ./.github/workflows/security.yaml
+    with:
+      audit-level: moderate
 
-      - name: Run Eslint Check
-        run: npx eslint .
-
+  # Build only after quality checks pass
   build:
-    runs-on: ubuntu-latest
-    steps:
-      - name: Checkout code
-        uses: actions/checkout@v4
-
-      - name: Set up Node.js
-        uses: actions/setup-node@v4
-        with:
-          node-version: 20
-          cache: npm
-
-      - name: Install dependencies
-        run: npm ci
-
-      - name: Run Build
-        run: npm run build
+    name: Build Check
+    uses: ./.github/workflows/build.yaml
+    needs: [prettier, eslint, test]
+    with:
+      upload-artifacts: ${{ github.event_name == 'push' && github.ref == 'refs/heads/main' }}
+      artifact-name: production-build

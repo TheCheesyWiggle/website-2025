@@ -1,6 +1,7 @@
 "use client";
 import React, { useRef } from "react";
 import dynamic from "next/dynamic";
+import Image from 'next/image';
 
 // Dynamically import the World component (client-only)
 const World = dynamic(() => import("../ui/globe").then((m) => m.World), {
@@ -88,7 +89,7 @@ export default function TravelGlobe() {
               <h3 className="font-bold text-lg text-black dark:text-white group-hover:text-sky-400 transition">
                 {place.name}
               </h3>
-              <img
+              <Image
                 src={place.image}
                 alt={place.name}
                 className="w-full max-w-sm rounded-lg my-2 shadow-md group-hover:shadow-xl transition"

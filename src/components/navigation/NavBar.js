@@ -10,6 +10,7 @@ import {
 import { motion } from "motion/react";
 import { cn } from "@/lib/utils";
 import { useRouter } from "next/navigation";
+import Image from 'next/image';
 
 export function NavBar({ children }) {
   const router = useRouter();
@@ -67,7 +68,7 @@ export function NavBar({ children }) {
                 label: "Finn van Montfort",
                 href: "#",
                 icon: (
-                  <img
+                  <Image
                     src="/assets/avatar.jpg"
                     className="h-7 w-7 shrink-0 rounded-full"
                     width={50}

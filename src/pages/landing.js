@@ -1,4 +1,5 @@
 import ProfileCard from "../components/profile/ProfileCard";
+import Link from 'next/link';
 
 import "../components/profile/ProfileCard.css";
 export default function Home() {
@@ -55,7 +56,7 @@ export default function Home() {
             height: "100%",
           }}
         >
-          <a href="/athlete" style={{ textDecoration: "none", width: "100%" }}>
+          <Link href="/athlete" style={{ textDecoration: "none", width: "100%" }}>
             <ProfileCard
               name="Athlete"
               title="Runner & Cyclist"
@@ -70,7 +71,7 @@ export default function Home() {
               enableTilt={true}
               enableMobileTilt={false}
             />
-          </a>
+          </Link>
         </div>
         {/* Software Engineer Card */}
         <div
@@ -82,7 +83,7 @@ export default function Home() {
             height: "100%",
           }}
         >
-          <a href="/terminal" style={{ textDecoration: "none", width: "100%" }}>
+          <Link href="/terminal" style={{ textDecoration: "none", width: "100%" }}>
             <ProfileCard
               name="Software Engineer"
               title="Hewlett Packard Enterprise"
@@ -97,7 +98,7 @@ export default function Home() {
               enableTilt={true}
               enableMobileTilt={false}
             />
-          </a>
+          </Link>
         </div>
         {/* Adventurer Card */}
         <div
@@ -109,7 +110,7 @@ export default function Home() {
             height: "100%",
           }}
         >
-          <a
+          <Link
             href="/adventurer"
             style={{ textDecoration: "none", width: "100%" }}
           >
@@ -127,7 +128,7 @@ export default function Home() {
               enableTilt={true}
               enableMobileTilt={false}
             />
-          </a>
+          </Link>
         </div>
       </div>
     </div>

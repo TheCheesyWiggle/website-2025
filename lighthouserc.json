@@ -1,0 +1,21 @@
+{
+  "ci": {
+    "collect": {
+      "startServerCommand": "npm run start",
+      "url": [
+        "http://localhost:3000",
+        "http://localhost:3000/landing",
+        "http://localhost:3000/athlete",
+        "http://localhost:3000/engineer"
+      ],
+      "numberOfRuns": 1,
+      "settings": {
+        "preset": "desktop"
+      }
+    },
+    "upload": {
+      "target": "filesystem",
+      "outputDir": "lhci-reports"
+    }
+  }
+}

@@ -32,19 +32,19 @@ jobs:
       - name: Install Lighthouse CI
         run: npm install -g @lhci/cli
 
-      - name: Run Lighthouse and generate HTML report
+      - name: Run Lighthouse and save reports
         run: |
           mkdir -p lhci-reports
-          lhci collect \
+          npx lhci collect \
             --url=http://localhost:3000 \
             --numberOfRuns=3 \
             --settings.chromeFlags="--headless" \
-            --output=json > lhci-reports/report.json
-          lhci assert || echo "Assertions skipped for visibility"
-          npx lhci generate --output=lhci-reports/report.html
+            --outputDir=lhci-reports
+          # Optional: assertions can be skipped
+          # npx lhci assert || echo "Assertions skipped"
 
-      - name: Upload Lighthouse report as artifact
+      - name: Upload Lighthouse reports as artifact
         uses: actions/upload-artifact@v4
         with:
           name: lighthouse-report
-          path: lhci-reports/report.html
+          path: lhci-reports/

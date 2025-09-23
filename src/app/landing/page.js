@@ -1,7 +1,7 @@
-import ProfileCard from "../components/profile/ProfileCard";
+import ProfileCard from "../../components/profile/ProfileCard";
 import Link from "next/link";
 
-import "../components/profile/ProfileCard.css";
+import "../../components/profile/ProfileCard.css";
 export default function Home() {
   return (
     <div

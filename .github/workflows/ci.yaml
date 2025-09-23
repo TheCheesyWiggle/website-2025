@@ -20,11 +20,9 @@ jobs:
   #     upload-coverage: true
   #     coverage-threshold: 80
 
-  # security:
-  #   name: Security Scan
-  #   uses: ./.github/workflows/security.yaml
-  #   with:
-  #     audit-level: moderate
+  audit:
+    name: Lighthous Aduit
+    uses: ./.github/workflows/audit.yaml
 
   # build:
   #   name: Build Check

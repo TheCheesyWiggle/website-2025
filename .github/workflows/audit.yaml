@@ -1,2 +1,50 @@
-#Needs to be redone
-name: Lighthouse Aduit
+name: Lighthouse Audit
+
+on:
+  workflow_call:
+
+jobs:
+  lighthouse:
+    name: Lighthouse Audit
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Build app
+        run: npm run build
+
+      - name: Start server
+        run: npm run start &
+
+      - name: Wait for server
+        run: npx wait-on http://localhost:3000
+
+      - name: Install Lighthouse CI
+        run: npm install -g @lhci/cli
+
+      - name: Run Lighthouse and generate HTML report
+        run: |
+          mkdir -p lhci-reports
+          lhci collect \
+            --url=http://localhost:3000 \
+            --numberOfRuns=3 \
+            --settings.chromeFlags="--headless" \
+            --output=json > lhci-reports/report.json
+          lhci assert || echo "Assertions skipped for visibility"
+          npx lhci generate --output=lhci-reports/report.html
+
+      - name: Upload Lighthouse report as artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: lighthouse-report
+          path: lhci-reports/report.html

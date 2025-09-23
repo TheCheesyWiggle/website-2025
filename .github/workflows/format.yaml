@@ -1,10 +1,10 @@
-name: Prettier Check
+name: Code Format Check
 
 on:
   workflow_call:
 
 jobs:
-  prettier:
+  format:
     runs-on: ubuntu-latest
 
     steps:
@@ -21,3 +21,6 @@ jobs:
 
       - name: Run Prettier check
         run: npx prettier --check .
+
+      - name: Run Eslint Check
+        run: npx eslint .

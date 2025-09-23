@@ -18,13 +18,13 @@ services:
     build:
       context: .
       dockerfile: Dockerfile
-      target: deps   # only install deps layer, faster dev builds
+      target: deps # only install deps layer, faster dev builds
     container_name: nextjs-dev
     command: npm run dev
     ports:
       - "3001:3000"
     volumes:
-      - .:/app        # mount source code
+      - .:/app # mount source code
       - /app/node_modules
       - /app/.next
     environment:

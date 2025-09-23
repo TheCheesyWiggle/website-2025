@@ -1,6 +1,7 @@
 "use client";
 import React, { useRef } from "react";
 import dynamic from "next/dynamic";
+import Image from "next/image";
 
 // Dynamically import the World component (client-only)
 const World = dynamic(() => import("../ui/globe").then((m) => m.World), {
@@ -37,17 +38,23 @@ export default function TravelGlobe() {
 
   // Fly the globe to a specific location
   const flyToPlace = (place) => {
-    if (worldRef.current && typeof worldRef.current.pointOfView === 'function') {
+    if (
+      worldRef.current &&
+      typeof worldRef.current.pointOfView === "function"
+    ) {
       worldRef.current.pointOfView(
         { lat: place.lat, lng: place.lng, altitude: 2 },
-        2000
+        2000,
       );
     }
   };
 
   // Initial globe position after mount
   const handleGlobeReady = () => {
-    if (worldRef.current && typeof worldRef.current.pointOfView === 'function') {
+    if (
+      worldRef.current &&
+      typeof worldRef.current.pointOfView === "function"
+    ) {
       worldRef.current.pointOfView({ lat: 20, lng: 0, altitude: 2 }, 2000);
     }
   };
@@ -70,7 +77,9 @@ export default function TravelGlobe() {
 
         {/* Gallery Section */}
         <div className="w-full md:w-1/3 h-1/3 md:h-full overflow-y-auto p-4 bg-white dark:bg-black">
-          <h2 className="text-xl font-bold mb-4 text-black dark:text-white">Travel Gallery</h2>
+          <h2 className="text-xl font-bold mb-4 text-black dark:text-white">
+            Travel Gallery
+          </h2>
           {myPlaces.map((place, index) => (
             <div
               key={index}
@@ -80,7 +89,7 @@ export default function TravelGlobe() {
               <h3 className="font-bold text-lg text-black dark:text-white group-hover:text-sky-400 transition">
                 {place.name}
               </h3>
-              <img
+              <Image
                 src={place.image}
                 alt={place.name}
                 className="w-full max-w-sm rounded-lg my-2 shadow-md group-hover:shadow-xl transition"

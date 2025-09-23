@@ -1,0 +1,35 @@
+name: CI Pipeline
+
+on:
+  pull_request:
+    branches: [master]
+  push:
+    branches:
+      - "*"
+      - "*/*"
+
+jobs:
+  format:
+    name: Code Format Check
+    uses: ./.github/workflows/format.yaml
+
+  # test:
+  #   name: Run Tests
+  #   uses: ./.github/workflows/test.yaml
+  #   with:
+  #     upload-coverage: true
+  #     coverage-threshold: 80
+
+  # security:
+  #   name: Security Scan
+  #   uses: ./.github/workflows/security.yaml
+  #   with:
+  #     audit-level: moderate
+
+  # build:
+  #   name: Build Check
+  #   uses: ./.github/workflows/build.yaml
+  #   needs: [prettier, eslint, test, security]
+  #   with:
+  #     upload-artifacts: ${{ github.event_name == 'push' && github.ref == 'refs/heads/main' }}
+  #     artifact-name: production-build

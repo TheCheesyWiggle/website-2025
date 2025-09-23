@@ -9,13 +9,9 @@ on:
       - "*/*"
 
 jobs:
-  prettier:
-    name: Prettier Check
-    uses: ./.github/workflows/prettier.yaml
-
-  eslint:
-    name: ESLint Check
-    uses: ./.github/workflows/eslint.yaml
+  format:
+    name: Code Format Check
+    uses: ./.github/workflows/format.yaml
 
   # test:
   #   name: Run Tests

@@ -17,7 +17,7 @@ jobs:
   #     coverage-threshold: 80
 
   audit:
-    name: Lighthous Aduit
+    name: Lighthouse Audit
     uses: ./.github/workflows/audit.yaml
 
   # build:

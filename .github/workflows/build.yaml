@@ -6,7 +6,7 @@ on:
       node-version:
         required: false
         type: string
-        default: '20'
+        default: "20"
       upload-artifacts:
         required: false
         type: boolean
@@ -14,11 +14,17 @@ on:
       artifact-name:
         required: false
         type: string
-        default: 'build-files'
+        default: "build-files"
 
 jobs:
   build:
     runs-on: ubuntu-latest
+    timeout-minutes: 15
+
+    strategy:
+      matrix:
+        node-version: [18, 20, 22]
+
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
@@ -26,7 +32,7 @@ jobs:
       - name: Set up Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: ${{ inputs.node-version }}
+          node-version: ${{ matrix.node-version }}
           cache: npm
 
       - name: Install dependencies
@@ -35,10 +41,18 @@ jobs:
       - name: Run Build
         run: npm run build
 
+      - name: Verify build output
+        run: |
+          if [ ! -d "dist" ]; then
+            echo "Build failed: dist directory not found"
+            exit 1
+          fi
+          echo "Build successful: $(ls -la dist/)"
+
       - name: Upload build artifacts
-        if: inputs.upload-artifacts
-        uses: actions/upload-artifact@v3
+        if: inputs.upload-artifacts && matrix.node-version == '20'
+        uses: actions/upload-artifact@v4
         with:
           name: ${{ inputs.artifact-name }}
           path: dist/
-          retention-days: 7
+          retention-days: 1

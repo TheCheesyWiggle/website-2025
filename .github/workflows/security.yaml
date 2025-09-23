@@ -6,12 +6,12 @@ on:
       node-version:
         required: false
         type: string
-        default: '20'
+        default: "20"
       audit-level:
         required: false
         type: string
-        default: 'moderate'
-        description: 'npm audit level: low, moderate, high, critical'
+        default: "moderate"
+        description: "npm audit level: low, moderate, high, critical"
 
 jobs:
   npm-audit:

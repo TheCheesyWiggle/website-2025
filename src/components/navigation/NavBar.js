@@ -10,8 +10,7 @@ import {
 import { motion } from "motion/react";
 import { cn } from "@/lib/utils";
 import { useRouter } from "next/navigation";
-import Image from "next/image";
-
+ 
 export function NavBar({ children }) {
   const router = useRouter();
   const links = [
@@ -55,7 +54,9 @@ export function NavBar({ children }) {
       <Sidebar open={open} setOpen={setOpen} animate={true}>
         <SidebarBody className="justify-between gap-10">
           <div className="flex flex-1 flex-col overflow-x-hidden overflow-y-auto">
-            <></>
+            <>
+              
+            </>
             <div className="mt-8 flex flex-col gap-2">
               {links.map((link, idx) => (
                 <SidebarLink key={idx} link={link} />
@@ -68,7 +69,7 @@ export function NavBar({ children }) {
                 label: "Finn van Montfort",
                 href: "#",
                 icon: (
-                  <Image
+                  <img
                     src="/assets/avatar.jpg"
                     className="h-7 w-7 shrink-0 rounded-full"
                     width={50}
@@ -113,7 +114,7 @@ export const LogoIcon = () => {
     </a>
   );
 };
-
+ 
 // Dummy dashboard component with content
 // Replace this with the action section from each page
 const Dashboard = () => {

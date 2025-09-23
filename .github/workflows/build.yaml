@@ -2,19 +2,6 @@ name: Build Check
 
 on:
   workflow_call:
-    inputs:
-      node-version:
-        required: false
-        type: string
-        default: '20'
-      upload-artifacts:
-        required: false
-        type: boolean
-        default: false
-      artifact-name:
-        required: false
-        type: string
-        default: 'build-files'
 
 jobs:
   build:
@@ -26,7 +13,7 @@ jobs:
       - name: Set up Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: ${{ inputs.node-version }}
+          node-version: 20
           cache: npm
 
       - name: Install dependencies
@@ -34,11 +21,3 @@ jobs:
 
       - name: Run Build
         run: npm run build
-
-      - name: Upload build artifacts
-        if: inputs.upload-artifacts
-        uses: actions/upload-artifact@v3
-        with:
-          name: ${{ inputs.artifact-name }}
-          path: dist/
-          retention-days: 7

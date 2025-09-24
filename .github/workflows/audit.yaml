@@ -1,2 +1,102 @@
-#Needs to be redone
-name: Lighthouse Aduit
+name: Lighthouse Audit
+
+on:
+  workflow_call:
+
+permissions:
+  pull-requests: write
+  contents: read
+
+jobs:
+  lighthouse:
+    name: Lighthouse Audit
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Build app
+        run: npm run build
+
+      - name: Start server
+        run: |
+          npm run start &
+          SERVER_PID=$!
+          echo "SERVER_PID=$SERVER_PID" >> $GITHUB_ENV
+          echo "Server started with PID: $SERVER_PID"
+
+      - name: Wait for server
+        run: |
+          echo "Waiting for server to be ready..."
+          npx wait-on http://localhost:3000 --timeout 30000 || {
+            echo "Server not responding on port 3000"
+            exit 1
+          }
+          echo "Server is ready!"
+
+      - name: Install Lighthouse CI
+        run: npm install -g @lhci/cli@0.12.0
+
+      - name: Run Lighthouse and save reports
+        run: |
+          mkdir -p lhci-reports
+          echo "Running Lighthouse audit..."
+          npx lhci collect \
+            --url=http://localhost:3000 \
+            --numberOfRuns=1 \
+            --settings.chromeFlags="--headless --no-sandbox --disable-dev-shm-usage --disable-gpu" \
+            --outputDir=lhci-reports
+          echo "Lighthouse audit completed!"
+
+      - name: Upload Lighthouse reports as artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: lighthouse-report-${{ github.run_number }}
+          path: lhci-reports/
+          retention-days: 7
+
+      - name: Post PR comment
+        if: github.event_name == 'pull_request'
+        uses: actions/github-script@v7
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          script: |
+            const runId = context.runId;
+            const artifactUrl = `https://github.com/${context.repo.owner}/${context.repo.repo}/actions/runs/${runId}`;
+
+            const body = `## Lighthouse Audit Results
+
+             Lighthouse audit completed successfully!
+
+             **[View full report here](${artifactUrl})**
+
+            The detailed Lighthouse report has been uploaded as an artifact and will be available for 7 days.
+
+            *Audit completed in run #${context.runNumber}*`;
+
+            github.rest.issues.createComment({
+              issue_number: context.issue.number,
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              body: body
+            });
+
+      - name: Cleanup
+        if: always()
+        run: |
+          if [ ! -z "$SERVER_PID" ]; then
+            echo "Stopping server (PID: $SERVER_PID)"
+            kill $SERVER_PID || true
+            sleep 2
+          fi

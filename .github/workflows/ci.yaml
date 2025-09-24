@@ -8,24 +8,9 @@ on:
 
 jobs:
   format:
-    # name: Code Format Check
+    name: Code Format Check
     uses: ./.github/workflows/format.yaml
 
-  # test:
-  #   name: Run Tests
-  #   uses: ./.github/workflows/test.yaml
-  #   with:
-  #     upload-coverage: true
-  #     coverage-threshold: 80
-
   audit:
-    # name: Lighthouse Audit
+    name: Lighthouse Audit
     uses: ./.github/workflows/audit.yaml
-
-  # build:
-  #   name: Build Check
-  #   uses: ./.github/workflows/build.yaml
-  #   needs: [prettier, eslint, test, security]
-  #   with:
-  #     upload-artifacts: ${{ github.event_name == 'push' && github.ref == 'refs/heads/main' }}
-  #     artifact-name: production-build

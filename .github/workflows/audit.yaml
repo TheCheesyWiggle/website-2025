@@ -52,14 +52,14 @@ jobs:
           name: lighthouse-report
           path: lhci-reports/
 
-      - name: Post PR comment with report link
+      - name: Post PR comment
         uses: actions/github-script@v7
         with:
+          github-token: ${{ secrets.GH_PAT }}
           script: |
-            const reportUrl = `${process.env.GITHUB_SERVER_URL}/${process.env.GITHUB_REPOSITORY}/suites/${process.env.GITHUB_RUN_ID}/artifacts`;
             github.rest.issues.createComment({
               issue_number: context.issue.number,
               owner: context.repo.owner,
               repo: context.repo.repo,
-              body: `:bar_chart: Lighthouse report is ready! You can download and view it here: [Report Artifact](${reportUrl})`
-            });
+              body: ":bar_chart: Lighthouse report ready! [Download here](...)" 
+            })

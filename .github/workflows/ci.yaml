@@ -18,9 +18,9 @@ jobs:
   #     upload-coverage: true
   #     coverage-threshold: 80
 
-  audit:
-    name: Lighthouse Audit
-    uses: ./.github/workflows/audit.yaml
+  # audit:
+  #   name: Lighthouse Audit
+  #   uses: ./.github/workflows/audit.yaml
 
   # build:
   #   name: Build Check

@@ -24,7 +24,9 @@ jobs:
       # Start local server
       - name: Start server
         run: npx serve ./out -l 3000 &
-        # 👆 change `./out` to your build folder
+
+      - name: Install wait-on
+        run: npm install -g wait-on
 
       # Wait until server is ready
       - name: Wait for server

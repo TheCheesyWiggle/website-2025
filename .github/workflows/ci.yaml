@@ -7,10 +7,9 @@ on:
     branches: ["**"]
 
 jobs:
-  format:
-    name: Code Format Check
-    uses: ./.github/workflows/format.yaml
+  steps:
+    - name: Code Format Check
+      uses: ./.github/workflows/format.yaml
 
-  audit:
-    name: Lighthouse Audit
-    uses: ./.github/workflows/audit.yaml
+    - name: Lighthouse Audit
+      uses: ./.github/workflows/audit.yaml

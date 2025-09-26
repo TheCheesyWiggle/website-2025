@@ -33,12 +33,16 @@ jobs:
       - name: Test routes
         run: |
           curl -I http://localhost:3000
-          curl -I http://localhost:3000/contact
+          curl -I http://localhost:3000/explorer
+          curl -I http://localhost:3000/engineer
+
+      - name: Create artifacts directory
+        run: mkdir -p /tmp/artifacts
 
       - name: Run Lighthouse audit
         uses: foo-software/lighthouse-check-action@master
         with:
-          urls: "http://localhost:3000,http://localhost:3000/contact"
+          urls: "http://localhost:3000,http://localhost:3000/engineer"
           outputDirectory: /tmp/artifacts
 
       - name: Upload reports

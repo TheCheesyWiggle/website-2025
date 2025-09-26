@@ -30,6 +30,9 @@ jobs:
       - name: Wait for server
         run: npx wait-on http://localhost:3000
 
+      - name: Create artifacts directory
+        run: mkdir -p /tmp/artifacts
+
       - name: Lighthouse audit
         uses: foo-software/lighthouse-check-action@master
         with:

@@ -3,14 +3,14 @@ name: CI Pipeline
 on:
   pull_request:
     branches: [master]
-  # push:
-  #   branches: ["**"]
+  push:
+    branches: ["**"]
 
 jobs:
   format:
     name: Code Format Check
     uses: ./.github/workflows/format.yaml
-    
+
   audit:
     name: Lighthouse Audit
     uses: ./.github/workflows/audit.yaml

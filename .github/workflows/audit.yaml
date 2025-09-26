@@ -15,24 +15,21 @@ jobs:
         with:
           node-version: 20
 
-      # Build your project
       - name: Install & Build
         run: |
           npm ci
           npm run build
 
-      # Start local server
+      # Start Next.js production server
       - name: Start server
-        run: npx serve ./out -l 3000 &
+        run: nohup npm run start -- -p 3000 &
 
       - name: Install wait-on
         run: npm install -g wait-on
 
-      # Wait until server is ready
       - name: Wait for server
         run: npx wait-on http://localhost:3000
 
-      # Run Lighthouse
       - name: Lighthouse audit
         uses: foo-software/lighthouse-check-action@master
         with:

@@ -14,26 +14,28 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: 20
+          cache: "npm"
 
       - name: Install & Build
         run: |
           npm ci
           npm run build
 
-      # Start Next.js production server
       - name: Start server
-        run: nohup npm run start -- -p 3000 &
-
-      - name: Install wait-on
-        run: npm install -g wait-on
+        run: npm run start -- -p 3000 &
 
       - name: Wait for server
-        run: npx wait-on http://localhost:3000
+        run: |
+          timeout 60 bash -c 'until curl -f -s http://localhost:3000; do 
+            sleep 3
+          done'
 
-      - name: Create artifacts directory
-        run: mkdir -p /tmp/artifacts
+      - name: Test routes
+        run: |
+          curl -I http://localhost:3000
+          curl -I http://localhost:3000/contact
 
-      - name: Lighthouse audit
+      - name: Run Lighthouse audit
         uses: foo-software/lighthouse-check-action@master
         with:
           urls: "http://localhost:3000,http://localhost:3000/contact"
@@ -41,6 +43,7 @@ jobs:
 
       - name: Upload reports
         uses: actions/upload-artifact@v4
+        if: always()
         with:
           name: lighthouse-reports
           path: /tmp/artifacts

@@ -269,12 +269,12 @@
 }
 
 .pc-avatar-content .avatar {
-  width: 100%;
-  position: absolute;
-  left: 50%;
-  transform: translateX(-50%) scale(1);
-  bottom: 2px;
-  opacity: calc(1.75 - var(--pointer-from-center));
+  position: relative;
+  width: 75%;
+  height: auto;
+  mix-blend-mode: screen;
+  overflow: hidden;
+  margin-top: 100px; 
 }
 
 .pc-avatar-content::before {

@@ -66,9 +66,9 @@ export default function Home() {
               handle=""
               status="Active"
               contactText="Strava"
-              avatarUrl="/assets/avatar_no_bg.png"
+              avatarUrl="/assets/athlete.png"
               miniAvatarUrl="/assets/avatar.jpg"
-              iconUrl="/assets/iconpattern.png"
+              iconUrl="/assets/stravapattern.png"
               grainUrl="/assets/grain.webp"
               showUserInfo={true}
               enableTilt={true}
@@ -126,9 +126,9 @@ export default function Home() {
               handle="."
               status="Exploring"
               contactText="Gallery"
-              avatarUrl="/assets/avatar_no_bg.png"
+              avatarUrl="/assets/adventure.png"
               miniAvatarUrl="/assets/avatar.jpg"
-              iconUrl="/assets/iconpattern.png"
+              iconUrl="/assets/mountainpattern.png"
               grainUrl="/assets/grain.webp"
               showUserInfo={true}
               enableTilt={true}

@@ -286,6 +286,8 @@ const ProfileCardComponent = ({
               className="avatar"
               src={avatarUrl}
               alt={`${name || "User"} avatar`}
+              fill
+              style={{ objectFit: "cover" }}
               loading="lazy"
               onError={(e) => {
                 const target = e.target;
@@ -299,6 +301,8 @@ const ProfileCardComponent = ({
                     <Image
                       src={miniAvatarUrl || avatarUrl}
                       alt={`${name || "User"} mini avatar`}
+                      fill
+                      style={{ objectFit: "cover" }}
                       loading="lazy"
                       onError={(e) => {
                         const target = e.target;

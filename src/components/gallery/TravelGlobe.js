@@ -92,6 +92,8 @@ export default function TravelGlobe() {
               <Image
                 src={place.image}
                 alt={place.name}
+                width={600}
+                height={600}
                 className="w-full max-w-sm rounded-lg my-2 shadow-md group-hover:shadow-xl transition"
               />
               <p className="text-sm text-neutral-700 dark:text-neutral-300">
